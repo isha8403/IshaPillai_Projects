@@ -1,0 +1,309 @@
+create table subject
+(
+subject_id int primary key,           -- linked to table subject and student
+subject_name varchar2(25),
+subject_fees int default 700
+);
+
+insert into subject (subject_id, subject_name) values(101, 'OperatingSystem');
+insert into subject (subject_id, subject_name) values(102, 'DigitalElectronics');
+insert into subject (subject_id, subject_name) values(103, 'CommunicationSkills');
+insert into subject (subject_id, subject_name) values(104, 'ImperativeProgramming');
+insert into subject (subject_id, subject_name) values(105, 'DiscreteMathematics');
+
+
+create table teacher
+(
+teacher_id int primary key,         -- Should be not null
+teacher_phonenum int,
+teacher_fname varchar2(10),
+teacher_lname varchar2(10),
+teacher_gender varchar2(6),
+subject_id int,
+constraint fk
+foreign key (subject_id) references subject(subject_id)
+);
+
+
+insert into teacher values(1, 9546812752, 'Riya', 'Subodh','Female', 101);
+insert into teacher values(2, 7548812059, 'Smita', 'Sonawane','Female',102);
+insert into teacher values(3, 8109546322, 'Teena', 'Joshi', 'Female', 103);
+insert into teacher values(4, 9845761230, 'Rakesh', 'Gupta', 'Male',104);
+insert into teacher values(5, 7321456980, 'Amol', 'Agarwal','Male',105);
+
+ create table student
+  (
+  student_id int primary key,                            --Should be not 
+  student_fname varchar2(8) not NULL,
+  student_lname varchar2(8) not NULL,
+  student_gender varchar2(6),
+  subject_id int,
+  seat_number varchar2(5),
+  constraint sfk
+  foreign key (subject_id) references subject(subject_id),
+  stud_email varchar2(18)
+  );
+
+
+insert into student values(1001, 'Preet','Patil', 'Female', 102, 'A1001', 'preet@gmail.com');
+insert into student values(1002, 'Sumeet','Chauhan', 'Male', 105, 'A1002', 'sumeet@gmail.com');
+insert into student values(1003, 'Leena', 'George', 'Female', 105, 'A1003', 'leena@gmail.com');
+insert into student values(1004, 'Nishika', 'Pawar', 'Female', 101, 'A1004', 'nishi@gmail.com');
+insert into student values(1005, 'Pranjal', 'Mehta', 'Female', 103, 'A1005', 'pranjal@gmail.com');
+insert into student values(1006, 'Spruha', 'Sharma', 'Female', 101, 'A1006','spru@gmail.com');
+insert into student values(1007, 'Tanishk', 'Bhatt', 'Male', 102, 'A1007', 'tanishk3@gmail.com');
+insert into student values(1008, 'Agasthya', 'Deshmukh', 'Male', 101, 'A1008', 'agasthya@gmail.com');
+insert into student values(1010, 'Tarini', 'Shah', 'Female', 105, 'A1010','tarini4@gmail.com');
+insert into student values(1009, 'Dev', 'Kadam', 'Male', 101,'A1009','dev54@gmail.com');
+
+
+create table exam
+(
+exam_sub varchar2(22),
+subject_id int primary key,
+exam_date date,
+exam_time varchar(14),
+roomno int
+);
+
+insert into exam
+values('OperatingSystem',101, '21/Sep/2022', '9:00-12:00', 202);
+insert into exam values('DiscreteMathematics',105, '24/Sep/2022', '10:00-01:00', 301);
+insert into exam values('DigitalElectronics',102, '26/Sep/2022', '9:00-12:00', 318);
+insert into exam values('ImperativeProgramming', 104, '29/Sep/2022', '9:00-12:00', 301);
+insert into exam values('CommunicationSkills', 103, '02/Oct/2022', '10:00-01:00', 318);
+
+select * from subject;
+select * from teacher;
+select * from student;
+select * from exam;
+
+
+									#:QUERRIES:#
+
+
+WHEN WE HAVE TO DELETE ONE SPECIFIC ROW:
+
+delete from student
+where subject_id = 102;
+
+ 
+TO UPDATE THE DATA:
+
+update student
+set student_fname = 'Varun'
+where subject_id = 105;
+
+
+ALTER COMMANDS:
+
+alter table teacher
+add salary int;
+
+alter table teacher
+modify teacher_fname varchar2(12);
+
+alter table student
+drop column student_lname;
+
+alter table exam
+rename to exam_tt;
+
+
+truncate table exam;
+
+select * from tab;
+
+
+STRING FUNCTIONS:
+
+select upper(student_fname) from student;
+
+select lower (student_lname) from student;
+
+*select concat (upper(student_fname), lower(student_lname))
+as "Full Name"
+from student;
+
+select replace (student_fname,'L','M') 
+from student 
+where student_id = 1003;
+
+
+COMPARISON OPERATORS:
+
+select * from student
+where length(student_fname) = length(student_lname);
+
+insert into student values(1011, '', '', '' 102, 'A1011', 'abc@gmail.com');
+
+select * from student
+where student_fname is not NULL;
+
+
+
+TO FETCH UNIQUE DATA FROM TABLE:
+
+select count(subject_id)
+from student;
+
+
+IMPLEMENTATION OF PRIMARY KEY:
+
+*insert into teacher values(4, 9543579135, 'Mithila', 'Pawar', 'Female', 103);
+select * from teacher;
+
+
+select * from teacher 
+where teacher_fname like 'Sm%';
+
+*select * from teacher
+where teacher_fname like '%ke%';
+select * from teacher;
+
+*select exam_sub from exam
+where exam_date between '21/Sep/2022' and '26/Sep/2022';
+
+select * from exam
+where extract (month from exam_date) = 09;
+
+select * from student
+order by
+student_fname desc;
+
+select count(*) from teacher;
+
+select distinct subject_id from student;
+
+JOINS:
+
+*select teacher_fname, teacher_lname, subject_name
+from teacher
+INNER JOIN
+subject on teacher.subject_id = subject.subject_id;
+
+select subject_name
+from exam
+LEFT JOIN
+subject on subject.subject_id = exam.subject_id;
+
+select student_fname, subject_name
+from subject
+RIGHT JOIN
+student on student.subject_id = subject.subject_id;
+
+select subject_name, exam_date
+from subject
+FULL JOIN
+exam on subject.subject_id = exam.subject_id;
+
+
+
+WHICH TEACHER IS TEACHING WHICH SUBJECT?
+select t.teacher_fname, s.subject_name
+from teacher t, subject s
+where t.subject_id = s.subject_id;
+
+TO SEE WHICH STUDENT IS IN WHICH CLASSROOM
+select s.student_fname, e.roomno
+from student s, exam e
+where s.subject_id = e.subject_id;
+
+TO SEE DISTINCT NUMBER OF CLASS ROOMS
+select distinct roomno from exam;
+ 
+*TO SEE WHICH SUBJECTS HAS SAME TIMING
+select exam_sub, exam_time from exam
+where exam_time = '9:00-12:00';
+select * from exam;
+
+TO KNOW WHOLE DETAILS OF CLASSROOM
+select t.teacher_fname, t.teacher_lname, s.student_fname, s.student_lname, e.roomno
+from student s, teacher t, exam e
+where t.subject_id = s.subject_id AND s.subject_id = e.subject_id;
+
+TO KNOW WHOLE DETAILS OF CLASSROOM NUMBER 202
+select t.teacher_fname, t.teacher_lname, s.student_fname, s.student_lname, e.roomno
+from student s, teacher t, exam e
+where t.subject_id = s.subject_id AND s.subject_id = e.subject_id AND e.roomno = 202; 
+
+WHICH STUDENTS ARE GIVING OPERATING SYSTEM EXAM
+select s.student_fname, sub.subject_name
+from student s, subject sub
+where s.subject_id = sub.subject_id AND subject_name='OperatingSystem'; 
+
+COUNT OF STUDENT WHO ARE GIVING SAME EXAM
+select subject_id, count(*) As Students
+from student
+group by subject_id;
+
+WHICH STUDENT IS GIVING WHICH SUBJECT EXAM AT WHAT TIME AND DATE
+select s.student_fname, s.student_lname, e.exam_sub, e.exam_date, e.exam_time
+from student s, exam e
+where s.subject_id = e.subject_id;
+
+TO KNOW HOW MANY STUDENTS ARE GIVING OPERATING SYSTEM EXAM
+select count(student_fname) from student
+where subject_id = 101;
+
+COUNT OF FEMALE AND MALE STUDENTS GIVING EXAM
+select count(student_fname),student_gender from student
+group by student_gender;
+
+GIVE INFO (SUBJECT NAME, STUDENT NAME, TEACHER NAME, EXAM DATE) FOR ALL SUBJECT
+select sub.subject_name, s.student_fname, t.teacher_fname, e.exam_date
+from subject sub, student s, teacher t, exam e
+where t.subject_id = s.subject_id AND  t.subject_id = sub.subject_id AND t.subject_id = e.subject_id;
+
+GIVE INFO (SUBJECT NAME, STUDENT NAME, TEACHER NAME, EXAM DATE) FOR PARTICULAR SUBJECT
+select s.student_fname, sub.subject_name, t.teacher_fname, e.exam_date
+from subject sub, student s, teacher t, exam e
+where t.subject_id = s.subject_id AND  t.subject_id = sub.subject_id AND t.subject_id = e.subject_id AND e.subject_id = 105;
+
+WHICH SEAT NUMBER IS PRESENT IN WHICH ROOM NUMBER
+select s.seat_number, e.roomno 
+from student s, exam e
+where s.subject_id = e.subject_id;
+
+COUNT OF STUDENTS IN CLASS ROOMS(according to subject id only one table is included)
+select roomno, count(subject_id) 
+from exam 
+group by roomno;
+
+COUNT OF STUDENTS IN ONE CLASS ROOM (according to seat numbers )
+select exam.roomno, count(student.seat_number) 
+from student, exam 
+where student.subject_id = exam.subject_id
+group by roomno;
+
+*STUDENTS GENDER ACCORDING TO EMAIL:
+select student_gender, count(stud_email)
+from student
+group by student_gender;
+select * from student;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
