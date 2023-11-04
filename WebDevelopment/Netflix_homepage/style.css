@@ -1,0 +1,113 @@
+@font-face {
+    font-family: netflix-sans-regular;
+    src: url(font/NetflixSans-Regular.woff2);
+}
+
+body{
+    margin: 0px;        /*to remove excess margin*/
+    padding: 0px;       /*to remove excess padding*/
+    overflow-y: hidden;     /*to hide scrollbar*/
+}
+
+.root{
+    background-size: cover;         /*to cover whole page*/
+    background-image: radial-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.8)),url("images/homeimage.jpeg");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.navbar{
+    height: 10vh;
+    padding-top: 1vw;
+    padding-right: 5vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.img-logo{
+    width:20%;
+    color: #e50914;
+}
+
+.btn-signin{
+    background-color: #e50914;
+    color: white;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: fit-content;
+    font-family: Arial, Helvetica, sans-serif;
+} 
+
+.main-container{
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-titles-container{
+    width: 100%;
+    text-align: center;
+    color: white;
+}
+
+.main-title{  
+    font-family: netflix-sans-regular ;
+    font-size: 3.0em;
+    margin-bottom: 14px;
+    align-content: justify;
+    line-height: 1.1;
+}
+
+.main-subtitle{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.5em;
+    margin-bottom: 13px;
+}
+
+.main-call-to-action{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.2em;
+}
+
+.main-email-container{
+    width: 55%;
+    height: 10%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: white;
+}
+
+.main-email-container-input{
+    outline: none;
+    border: none;
+    padding: 1px 10px;
+    color: white;
+    background-color: rgba(0,0,0,0);
+}
+
+.btn-get-started{
+    cursor: pointer;
+    padding: 15px 32px;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 44%;
+    background-color: #e50914;
+    color: white;
+    font-size: 1.3em;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.btn-get-started:hover{
+    background-color: #ff0b18;
+    
+}
